@@ -3,6 +3,7 @@ package com.example.recloth.composables
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +31,7 @@ import com.example.recloth.R
 
 @Composable
 fun LandingScreen(modifier: Modifier) {
-    Box {
+    Box(modifier = Modifier) {
         Box {
             Image(painter = painterResource(id = R.drawable.backdrop),contentDescription = "Backdrop")
             Column(modifier = Modifier.fillMaxSize(),
@@ -38,7 +40,6 @@ fun LandingScreen(modifier: Modifier) {
                 Text("Welcome to", color = Color.White, fontSize = 50.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(10.dp))
                 Text("ReCloth", color = Color.White, fontSize = 50.sp, fontWeight = FontWeight.Bold)
-
             }
         }
         Column(modifier = Modifier.fillMaxSize().padding(top = 250.dp)
