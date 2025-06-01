@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    //serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
