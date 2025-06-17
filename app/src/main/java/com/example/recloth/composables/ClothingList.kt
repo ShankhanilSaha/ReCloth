@@ -1,5 +1,6 @@
 package com.example.recloth.composables
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -13,8 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.recloth.json.Item
 
 @Composable
@@ -24,14 +27,17 @@ fun ClothingList(
     modifier: Modifier = Modifier
 ) {
     val gridState = rememberLazyGridState()
+    val context = LocalContext.current
     
     // Filter items to only include those with all required attributes
-    val validItems = items.filter { item ->
-        item.names.isNotBlank() && 
-        item.images != null && 
-        item.images.isNotBlank() && 
-        item.prices != null && 
-        item.prices.isNotBlank()
+    val validItems = remember(items) {
+        items.filter { item ->
+            item.names.isNotBlank() && 
+            item.images != null && 
+            item.images.isNotBlank() && 
+            item.prices != null && 
+            item.prices.isNotBlank()
+        }
     }
     
     // Scroll to top when category changes
@@ -57,14 +63,17 @@ fun ClothingList(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(validItems) { item ->
-            ClothingItemCard(item = item)
+        items(
+            items = validItems,
+            key = { it.names + it.images } // Add key for better item recycling
+        ) { item ->
+            ClothingItemCard(item = item, context = context)
         }
     }
 }
 
 @Composable
-fun ClothingItemCard(item: Item) {
+fun ClothingItemCard(item: Item, context: Context) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,7 +87,11 @@ fun ClothingItemCard(item: Item) {
                     .background(Color.LightGray)
             ) {
                 AsyncImage(
-                    model = item.images,
+                    model = ImageRequest.Builder(context)
+                        .data(item.images)
+                        .crossfade(true)
+                        .size(300) // Limit image size
+                        .build(),
                     contentDescription = item.names,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Fit

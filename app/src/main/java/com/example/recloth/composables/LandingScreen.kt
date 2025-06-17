@@ -8,6 +8,10 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.recloth.R
-import com.example.recloth.models.ClothingItem
 import com.example.recloth.utils.JsonLoader
 
 @Composable
@@ -110,6 +113,18 @@ fun LandingScreen(modifier: Modifier) {
                 selectedCategory = selectedCategory,
                 modifier = Modifier.fillMaxSize()
             )
+        }
+        FloatingActionButton(onClick = {
+            /*TODO*/
+        },modifier = Modifier
+            .align(Alignment.BottomEnd)
+            .padding(32.dp)
+        ) {
+            Row(Modifier.padding(8.dp)){
+                Text(text = "Recycle")
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(imageVector = Icons.Filled.Send, contentDescription = "Go to about page")
+            }
         }
     }
 }
