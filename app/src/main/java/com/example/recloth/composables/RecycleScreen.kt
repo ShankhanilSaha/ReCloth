@@ -25,16 +25,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun RecycleScreen() {
+fun RecycleScreen(
+    onBackClick: () -> Unit = {}
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
+            Spacer(modifier = Modifier.height(56.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = {
-                    /*TODO*/
-                }) {
+                IconButton(onClick = onBackClick) {
                     Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
                 }
                 Text(text = "Return", fontWeight = FontWeight.Bold, fontSize = 20.sp)
@@ -61,7 +62,7 @@ fun RecycleScreen() {
                             "• Select the clothes you want to recycle or donate\n" +
                             "• Schedule a pickup or drop-off\n" +
                             "• Track your recycling history and environmental impact\n\n" +
-                            "We’ve partnered with certified recycling agencies and NGOs to ensure your clothes are handled responsibly."
+                            "We've partnered with certified recycling agencies and NGOs to ensure your clothes are handled responsibly."
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -73,13 +74,13 @@ fun RecycleScreen() {
                             "• Get discounts on new sustainable clothing brands\n" +
                             "• Buy upcycled fashion products\n" +
                             "• Access exclusive rewards and eco-friendly merchandise\n\n" +
-                            "It’s our way of saying thank you for helping the planet."
+                            "It's our way of saying thank you for helping the planet."
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 SectionTitle("🌍 Join the Movement")
-                SectionText("ReCloth isn’t just an app — it’s a movement toward a circular fashion future. Whether you're clearing your wardrobe or shopping sustainably, you’re making a difference.")
+                SectionText("ReCloth isn't just an app — it's a movement toward a circular fashion future. Whether you're clearing your wardrobe or shopping sustainably, you're making a difference.")
             }
         }
     }
@@ -106,5 +107,5 @@ fun SectionText(text: String) {
 @Preview(showBackground = true)
 @Composable
 fun RecycleScreenPreview() {
-    RecycleScreen()
+    RecycleScreen(onBackClick = {})
 }
