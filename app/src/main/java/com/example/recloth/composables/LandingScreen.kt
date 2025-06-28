@@ -27,14 +27,16 @@ import com.example.recloth.R
 import com.example.recloth.utils.JsonLoader
 
 @Composable
-fun LandingScreen(modifier: Modifier) {
+fun LandingScreen(
+    onRecycleClick: () -> Unit = {}
+) {
     var selectedCategory by remember { mutableStateOf("shirts") }
     val context = LocalContext.current
     val clothingItems = remember(selectedCategory) { 
         JsonLoader.loadClothingItems(context, selectedCategory)
     }
 
-    Box(modifier = Modifier) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Box {
             Image(painter = painterResource(id = R.drawable.backdrop), contentDescription = "Backdrop")
             Column(
@@ -61,49 +63,41 @@ fun LandingScreen(modifier: Modifier) {
                 CategoryImage(
                     resourceId = R.drawable.shirts,
                     category = "shirts",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
                 CategoryImage(
                     resourceId = R.drawable.tshirts,
                     category = "tshirts",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
                 CategoryImage(
                     resourceId = R.drawable.jackets,
                     category = "jackets",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
                 CategoryImage(
                     resourceId = R.drawable.jeans,
                     category = "jeans",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
                 CategoryImage(
                     resourceId = R.drawable.pants,
                     category = "pants",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
                 CategoryImage(
                     resourceId = R.drawable.shoes,
                     category = "shoes",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
                 CategoryImage(
                     resourceId = R.drawable.sarees,
                     category = "sarees",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
                 CategoryImage(
                     resourceId = R.drawable.salwaar,
                     category = "salwaar",
-                    selectedCategory = selectedCategory,
                     onCategorySelected = { selectedCategory = it }
                 )
             }
@@ -114,9 +108,7 @@ fun LandingScreen(modifier: Modifier) {
                 modifier = Modifier.fillMaxSize()
             )
         }
-        FloatingActionButton(onClick = {
-            /*TODO*/
-        },modifier = Modifier
+        FloatingActionButton(onClick = onRecycleClick,modifier = Modifier
             .align(Alignment.BottomEnd)
             .padding(32.dp)
         ) {
@@ -133,7 +125,6 @@ fun LandingScreen(modifier: Modifier) {
 private fun CategoryImage(
     resourceId: Int,
     category: String,
-    selectedCategory: String,
     onCategorySelected: (String) -> Unit
 ) {
     Image(
@@ -149,5 +140,5 @@ private fun CategoryImage(
 @Preview(showBackground = true)
 @Composable
 fun LandingScreenPreview() {
-    LandingScreen(modifier = Modifier)
+    LandingScreen(onRecycleClick = {})
 }
