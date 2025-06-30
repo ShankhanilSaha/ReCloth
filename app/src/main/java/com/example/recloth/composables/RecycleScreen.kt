@@ -1,5 +1,6 @@
 package com.example.recloth.composables
 
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -82,6 +84,10 @@ fun RecycleScreen(
 
                 SectionTitle("🌍 Join the Movement")
                 SectionText("ReCloth isn't just an app — it's a movement toward a circular fashion future. Whether you're clearing your wardrobe or shopping sustainably, you're making a difference.")
+                Spacer(modifier = Modifier.height(32.dp))
+                Button(onClick = {/*TODO*/},modifier = Modifier.fillMaxWidth()) {
+                    Text(text = "Request Pickup")
+            }
             }
         }
     }
