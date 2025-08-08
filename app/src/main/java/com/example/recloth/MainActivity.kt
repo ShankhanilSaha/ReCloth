@@ -20,6 +20,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.recloth.ui.theme.ReClothTheme
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -38,6 +40,27 @@ class MainActivity : ComponentActivity() {
                 })
             }
         }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        // Before using this, make sure you've added the Firebase Auth dependency to build.gradle
+        // implementation 'com.google.firebase:firebase-auth-ktx'
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success!
+                    Log.d("MainActivity", "Firebase sign-in success.")
+                    val firebaseUser = FirebaseAuth.getInstance().currentUser
+                    Log.d("MainActivity", "User UID: ${firebaseUser?.uid}")
+
+                    // TODO: Navigate to your main app screen (AppNavigation) now.
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("MainActivity", "Firebase sign-in failed.", task.exception)
+                }
+            }
     }
 
     private fun signIn() {
@@ -68,7 +91,7 @@ class MainActivity : ComponentActivity() {
                 val googleIdToken = googleIdTokenCredential.idToken
                 Log.d("MainActivity", "Successfully got Google ID token: $googleIdToken")
                 // TODO: Pass this token to your Firebase authentication function
-                // firebaseAuthWithGoogle(googleIdToken)
+                firebaseAuthWithGoogle(googleIdToken)
             } catch (e: Exception) {
                 Log.e("MainActivity", "Failed to create credential from data", e)
             }
