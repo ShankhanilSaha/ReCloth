@@ -112,7 +112,7 @@ Before you begin, ensure you have the following installed:
 
 <div align="center">
   
-  ### ⭐ Star this repository if you found it helpful!
+  ### ⭐ Star this repository if you liked the project!
   
   **Made by Shankhanil Saha**  
 </div>
